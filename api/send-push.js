@@ -3,9 +3,23 @@
 import webpush from 'web-push';
 
 export default async (req, res) => {
+  // ----- RESPONDER PRE-FLIGHT CORS -----
+  if (req.method === "OPTIONS") {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    return res.status(200).end();
+  }
+
+  // ----- SIEMPRE HEADERS CORS -----
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Only POST allowed" });
   }
+
   try {
     const { subs, notif } = req.body;
 
