@@ -1,0 +1,7 @@
+{
+  "name": "pic-push-server",
+  "type": "module",
+  "dependencies": {
+    "web-push": "^3.5.0"
+  }
+}
